@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id                String    @id @default(cuid())
+  object            String?   @default("event")
+  actor_id          String
+  actor_name        String
+  actor_email       String
+  group             String
+  action_id         String
+  action_object     String?   @default("event_action")
+  event_name        String
+  target_id         String
+  target_name       String
+  target_email      String
+  location          String
+  occurred_at       DateTime? @default(now())
+  meta_redirect     String
+  meta_description  String
+  meta_x_request_id String
+}
