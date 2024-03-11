@@ -22,7 +22,7 @@ model Event {
   group             String
   action_id         String
   action_object     String?   @default("event_action")
-  event_name        String
+  action_name        String
   target_id         String
   target_name       String
   target_email      String
