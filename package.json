@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.10.2",
     "@types/jquery": "^3.5.29",
     "jquery": "^3.7.1",
     "next": "14.1.3",
