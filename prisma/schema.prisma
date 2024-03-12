@@ -14,7 +14,8 @@ datasource db {
 }
 
 model Event {
-  id                String    @id @default(cuid())
+  id                Int    @id @default(autoincrement())
+  event_id          String
   object            String?   @default("event")
   actor_id          String
   actor_name        String
