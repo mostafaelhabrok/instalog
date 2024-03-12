@@ -1,97 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
-// import schema from "./schema";
-// import prisma from '@/prisma/client';
+import schema from "./schema";
+import prisma from '@/prisma/client';
+// import { randomUUID } from "crypto";
 
 export async function GET(request: NextRequest) {
-    // const users =  await prisma.user.findMany();
-    const events = [
-        {
-            "id": "evt_15B56WILKW5K",
-            "object": "event",
-            "actor_id": "user_3VG74289PUA2",
-            "actor_name": "Ali Salah",
-            "group": "instatus.com",
-            "action": {
-                "id": "evt_action_PGTD81NCAOQ2",
-                "object": "event_action",
-                "name": "user.login_succeeded"
-            },
-            "target_id": "user_DOKVD1U3L030",
-            "target_name": "ali@instatus.com",
-            "location": "105.40.62.95",
-            "occurred_at": "2022-01-05T14:31:13.607Z",
-            "metadata": {
-                "redirect": "/setup",
-                "description": "User login succeeded.",
-                "x_request_id": "req_W1Y13QOHMI5H"
-            },
-        },
-        {
-            "id": "evt_15B56WILKW5",
-            "object": "event",
-            "actor_id": "user_3VG74289PUA2",
-            "actor_name": "Mostafa",
-            "group": "instatus.com",
-            "action": {
-                "id": "evt_action_PGTD81NCAOQ2",
-                "object": "event_action",
-                "name": "user.login_succeeded"
-            },
-            "target_id": "user_DOKVD1U3L030",
-            "target_name": "ali@instatus.com",
-            "location": "105.40.62.95",
-            "occurred_at": "2022-01-05T14:31:13.607Z",
-            "metadata": {
-                "redirect": "/setup",
-                "description": "User login succeeded.",
-                "x_request_id": "req_W1Y13QOHMI5H"
-            },
-        },
-        {
-            "id": "evt_15B56WILKW",
-            "object": "event",
-            "actor_id": "user_3VG74289PUA2",
-            "actor_name": "saad",
-            "group": "instatus.com",
-            "action": {
-                "id": "evt_action_PGTD81NCAOQ2",
-                "object": "event_action",
-                "name": "user.login_succeeded"
-            },
-            "target_id": "user_DOKVD1U3L030",
-            "target_name": "ali@instatus.com",
-            "location": "105.40.62.95",
-            "occurred_at": "2022-01-05T14:31:13.607Z",
-            "metadata": {
-                "redirect": "/setup",
-                "description": "User login succeeded.",
-                "x_request_id": "req_W1Y13QOHMI5H"
-            },
-        }
-    ];
+    const events = await prisma.event.findMany();
 
     return NextResponse.json(events);
 }
 
 export async function POST(request: NextRequest) {
-    // const body = await request.json();
-    // const validation = schema.safeParse(body);
+    const body = await request.json();
+    // console.log(body);
+    const validation = schema.safeParse(body);
 
-    // if(!validation.success) 
-    //     return NextResponse.json(validation.error.errors,{status:400});
+    if (!validation.success)
+        return NextResponse.json(validation.error.errors, { status: 400 });
 
-    // const user = await prisma.user.findUnique({
-    //     where:{email:body.email}
-    // });
+    const generateRandomString = function(length: number): string {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for ( let i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+        }
+          
 
-    // if(user) return NextResponse.json({error:'User Already Exists'},{status:400});
+    const newEvent = await prisma.event.create({
+        data: {
+            event_id: "evt_" + generateRandomString(12),
+            actor_id: body.actor_id,
+            actor_name: body.actor_name,
+            actor_email: body.actor_email,
+            group: body.group,
+            action_id: body.action_id,
+            action_name: body.action_name,
+            target_id: body.target_id,
+            target_name: body.target_name,
+            target_email: body.target_email,
+            location: body.location,
+            occurred_at: body.occurred_at,
+            meta_redirect: body.meta_redirect,
+            meta_description: body.meta_description,
+            meta_x_request_id: body.meta_x_request_id
+        }
+    });
 
-    // const newUser = await prisma.user.create({
-    //     data:{
-    //         name:body.name,
-    //         email:body.email
-    //     }
-    // });
-
-    // return NextResponse.json(newUser,{status:201});
+    return NextResponse.json(newEvent, { status: 201 });
 }
