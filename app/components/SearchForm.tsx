@@ -3,9 +3,12 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Event } from '../components/EventsTable'
+import useEvent from '../hooks/hook'
 
 interface Props{
-    events:Event[]
+    events:Event[];
+    onToggle: any;
+    isLive:boolean;
 }
 
 
@@ -13,6 +16,9 @@ const SearchForm = (props: Props) => {
     const [filter, setFilter] = useState('');
 
     const queryString = `?filter=${filter}`;
+
+    const onToggle = props.onToggle;
+    const isLive = props.isLive;
 
     const events = props.events;
     const exportToCsv = () => {
@@ -73,7 +79,10 @@ const SearchForm = (props: Props) => {
                     <i className="fa-solid fa-file-export"></i>
                     Export
                 </button>
-                <button className="no-radius btn bordered right-radius">
+                <button onClick={(e) => {
+                        onToggle();
+                        
+                }} className={`no-radius btn bordered right-radius ${isLive ? 'btn-active btn-warning' : ''}`}>
                     <i className="fa-solid fa-record-vinyl"></i>
                     Live
                 </button>
