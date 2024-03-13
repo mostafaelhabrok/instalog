@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import styles from '../events.module.css'
 
 
 interface Props{
@@ -21,8 +22,8 @@ const LoadMore = (props:Props) => {
 
 
     return (
-        <div className={`border bottom-radius load_more `}>
-            <Link className={`w-full btn no-radius bottom-radius ${disable}`} href={`/events${queryString}`}>Load More</Link>
+        <div className={`border ${styles.bottomRadius} load_more `}>
+            <Link className={`w-full btn ${styles.noRadius} ${styles.bottomRadius} ${disable}`} href={`/events${queryString}`}>Load More</Link>
         </div>
     )
 }

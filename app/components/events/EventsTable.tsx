@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import EventItem from './EventItem'
 import Link from 'next/link';
 import { sort } from 'fast-sort';
+import styles from '../events.module.css'
 
 export interface Event {
   id: string;
@@ -65,22 +66,22 @@ const EventsTable = (props: Props) => {
 
   return (
     <>
-      <div className='overflow-x-auto px-5 pb-3 search-form'>
+      <div className={`overflow-x-auto px-5 pb-3 ${styles.searchForm} `}>
         <div className='flex t-head px-5 mt-5'>
-          <div className='font-bold t-title w-4/12'>
+          <div className={`font-bold ${styles.tTitle} w-4/12`}>
             <button title={`Sort ${sortDirections.actor_email}`} onClick={() => handleSort('actor_email')}>ACTOR <i className="fa-solid fa-sort"></i></button>
           </div>
-          <div className='font-bold t-title w-4/12'>
+          <div className={`font-bold ${styles.tTitle} w-4/12`}>
           <button title={`Sort ${sortDirections.action}`} onClick={() => handleSort('action')}>ACTION <i className="fa-solid fa-sort"></i></button>
           </div>
-          <div className='font-bold t-title w-3/12'>
+          <div className={`font-bold ${styles.tTitle} w-3/12`}>
           <button title={`Sort ${sortDirections.occurred_at}`} onClick={() => handleSort('occurred_at')}>DATE <i className="fa-solid fa-sort"></i></button>
           </div>
-          <div className='font-bold t-title w-1/12'></div>
+          <div className={`font-bold ${styles.tTitle} w-1/12`}></div>
         </div>
       </div>
-      <div className="overflow-x-auto t-body  overflow-y-auto max-h-96">
-        <ul>
+      <div className={`overflow-x-auto ${styles.tBody}  overflow-y-auto max-h-96`}>
+        <ul className={`${styles.mobileWrap}`}>
           {events.map(event =>
             <EventItem key={event.event_id} event={event} />
           )}

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Event } from './EventsTable'
+import styles from '../events.module.css'
 
 interface Props{
     events:Event[];
@@ -57,12 +58,12 @@ const SearchForm = (props: Props) => {
 
     return (
 
-        <div className="overflow-x-auto p-5 search-form top-radius ">
-            <div className='flex search'>
+        <div className={`overflow-x-auto p-5 ${styles.searchForm} ${styles.topRadius} `}>
+            <div className={`flex ${styles.search}`}>
                 <input
                     type="text"
                     placeholder="Search name, email or action..."
-                    className="input input-bordered background w-full no-radius left-radius "
+                    className={`focus:outline-none input input-bordered background w-full ${styles.noRadius} ${styles.leftRadius} ${styles.backColor} ${styles.borderColor} `}
                     value={filter && filter != 'undefined' ? filter : ''}
                     onChange={(e) => {
                         setFilter(e.target.value);
@@ -70,20 +71,20 @@ const SearchForm = (props: Props) => {
                     }
                 />
 
-                <Link className='btn no-radius bordered' href={`/events${queryString}`}>
+                <Link className={`btn ${styles.noRadius} bordered ${styles.borderColor}`} href={`/events${queryString}`}>
                     <i className="fa-solid fa-filter"></i>
                     Filter
                 </Link>
 
-                <button onClick={exportToCsv} className="no-radius btn bordered">
+                <button onClick={exportToCsv} className={`${styles.noRadius} btn bordered ${styles.borderColor}`}>
                     <i className="fa-solid fa-file-export"></i>
                     Export
                 </button>
                 <button onClick={(e) => {
                         onToggle();
                         
-                }} className={`no-radius btn bordered right-radius ${isLive ? 'btn-active btn-warning' : ''}`}>
-                    <i className="fa-solid fa-record-vinyl"></i>
+                }} className={`${styles.noRadius} btn bordered ${styles.rightRadius} ${styles.borderColor} ${isLive ? 'btn-active btn-warning' : ''}`}>
+                    <i className={`fa-solid fa-record-vinyl ${styles.liveIcon}`}></i>
                     Live
                 </button>
             </div>

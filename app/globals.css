@@ -36,4 +36,9 @@ body {
   }
 }
 
-@import '../public/events.css';
+:root{
+  --radius:8px;
+  --main-color:#f2f2f2;
+  --back-color:#dcdcdc;
+}
+/* @import '../public/events.css'; */

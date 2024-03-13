@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react'
+import styles from '../events.module.css'
 
 const AddEventButton = () => {
     return (
-        <div className='add_event'>
+        <div className={`${styles.add_event}`}>
             <button onClick={() => {
                 (document.getElementById('event_form')as any).showModal();
             }}>

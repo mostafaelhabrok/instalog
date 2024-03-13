@@ -1,0 +1,90 @@
+
+  .backColor{
+    background-color: var(--main-color) ;
+  }
+ .borderColor{
+    border-color: var(--back-color) ;
+  }
+  .noRadius{
+    border-radius: 0 ;
+  }
+  
+  .rightRadius{
+      border-top-right-radius: var(--radius) ;
+      border-bottom-right-radius: var(--radius) ;
+  }
+  
+  .leftRadius{
+    border-top-left-radius: var(--radius) ;
+    border-bottom-left-radius: var(--radius) ;
+  }
+  .bottomRadius{
+    border-bottom-right-radius: var(--radius) ;
+    border-bottom-left-radius: var(--radius) ;
+  }
+  .topRadius{
+    border-top-right-radius: var(--radius) ;
+    border-top-left-radius: var(--radius) ;
+  }
+  .searchForm{
+    background-color: var(--main-color);
+  
+  }
+
+  .tBody{
+      border-right: 1px solid;
+      border-left: 1px solid;
+      border-color: var(--main-color);
+  }
+  
+  .tTitle{
+    color: #646464;
+  
+  }
+  .detailsArrow{
+    color: var(--back-color);
+  }
+
+  .avatar {
+    width: 40px; 
+    height: 40px; 
+    color: #fff; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 20px; 
+  }
+
+  .liveIcon{
+    color: darkred;
+  }
+
+  .add_event {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .search{
+      display: grid ;
+      
+    }
+    .search *{
+      border-radius: 0 ;
+    }
+    .mobileWrap{
+      overflow-wrap: anywhere;
+    }
+  }
+
+  

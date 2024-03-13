@@ -2,6 +2,7 @@ import React from 'react'
 import DetailsButton from './DetailsButton'
 import EventDetails from './EventDetails'
 import { Event } from './EventsTable'
+import styles from '../events.module.css'
 
 interface Props {
     event: Event
@@ -56,7 +57,7 @@ const EventItem = (props: Props) => {
                         <div className='flex t-head px-5'>
                             <div className="flex items-center gap-3 w-4/12">
 
-                                <div className="avatar" style={{ background: getAvatarColor(event.actor_name.charAt(0).toUpperCase()) }}>
+                                <div className={`${styles.avatar}`} style={{ background: getAvatarColor(event.actor_name.charAt(0).toUpperCase()) }}>
                                     {event.actor_name.charAt(0).toUpperCase()}
                                 </div>
 
@@ -64,9 +65,9 @@ const EventItem = (props: Props) => {
                                     <div className=""> {event.actor_email} </div>
                                 </div>
                             </div>
-                            <div className=' t-title w-4/12'> {event.action.name} </div>
-                            <div className=' t-title w-3/12'> {formattedDateTime} </div>
-                            <div className=' t-title w-1/12'><DetailsButton id={event.id} /></div>
+                            <div className={` ${styles.tTitle} w-4/12`}> {event.action.name} </div>
+                            <div className={` ${styles.tTitle} w-3/12`}> {formattedDateTime} </div>
+                            <div className={` ${styles.tTitle} w-1/12`}><DetailsButton id={event.id} /></div>
                         </div>
                     </div>
                     <div className="collapse-content">

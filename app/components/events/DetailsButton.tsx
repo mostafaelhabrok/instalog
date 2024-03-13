@@ -2,6 +2,7 @@
 
 import React from 'react'
 import $ from 'jquery';
+import styles from '../events.module.css'
 
 interface Props{
     id:string
@@ -28,7 +29,7 @@ const DetailsButton = (props: Props) => {
             }
         }
             className="btn btn-ghost btn-xs">
-            <i className="fa-solid fa-chevron-right"></i>
+            <i className={`fa-solid fa-chevron-right ${styles.detailsArrow}`}></i>
         </button>
     )
 }
