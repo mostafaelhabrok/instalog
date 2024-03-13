@@ -8,10 +8,19 @@ import { Event } from '../../components/EventsTable'
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     const filter = params.get('filter') as string;
+    // const sort = params.get('sort') as string;
+    // const order = params.get('order') as string;
+    const take = params.get('take') as string;
+
+
+// console.log(take)
 
     // console.log(filter)
     const events = await prisma.event.findMany(
         {
+            take: 
+                (take && take != 'undefined') ?
+                    parseInt(take) : 5,
             where:
                 (filter && filter != 'undefined') ?
                     {
@@ -25,10 +34,16 @@ export async function GET(request: NextRequest) {
                             { action_id: { contains: filter } },
                             { action_name: { contains: filter } }
                         ]
-                    } : {}
+                    } : {},
+            // orderBy:
+            //     (sort && sort != 'undefined' && order && order != 'undefined') ?
+            //         {
+            //             [sort]: order
+            //         } : {}
         }
 
     );
+    const eventTotal = await prisma.event.count();
     // console.log(events);
     let eventObjects: Event[] = [];
     for (let i = 0; i < events.length; i++) {
@@ -64,7 +79,7 @@ export async function GET(request: NextRequest) {
     }
     // console.log(eventObjects);
 
-    return NextResponse.json(eventObjects);
+    return NextResponse.json({eventObjects,eventTotal},{status:200});
 }
 
 export async function POST(request: NextRequest) {

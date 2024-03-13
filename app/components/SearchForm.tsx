@@ -1,15 +1,47 @@
-import React from 'react'
+'use client'
 
-const SearchForm = () => {
+import Link from 'next/link'
+import React, { useState } from 'react'
+import { Event } from '../components/EventsTable'
+
+interface Props{
+    sort:string;
+    order:string;
+}
+
+
+const SearchForm = (props:Props) => {
+    const [filter, setFilter] = useState('');
+
+    const sort = props.sort;
+    const order = props.order;
+    const queryString = `?filter=${filter}&sort=${sort}&order=${order}`;
+
+
+
+
+
+
     return (
 
         <div className="overflow-x-auto p-5 search-form top-radius ">
-            <div className='flex '>
-                <input type="text" placeholder="Search name, email or action..." className="input input-bordered background w-full no-radius left-radius " />
-                <button className="no-radius btn bordered">
+            <div className='flex search'>
+                <input
+                    type="text"
+                    placeholder="Search name, email or action..."
+                    className="input input-bordered background w-full no-radius left-radius "
+                    value={filter}
+                    onChange={(e) => {
+                        setFilter(e.target.value);
+                    }
+                    }
+                />
+                {/* <button className="no-radius btn bordered"> */}
+                <Link className='btn no-radius bordered' href={`/events${queryString}`}>
                     <i className="fa-solid fa-filter"></i>
                     Filter
-                </button>
+                </Link>
+                {/* </button> */}
                 <button className="no-radius btn bordered">
                     <i className="fa-solid fa-file-export"></i>
                     Export
@@ -19,12 +51,7 @@ const SearchForm = () => {
                     Live
                 </button>
             </div>
-            <div className='flex t-head px-5 mt-5'>
-                <div className='font-bold t-title w-4/12'>Actor</div>
-                <div className='font-bold t-title w-4/12'>Action</div>
-                <div className='font-bold t-title w-3/12'>Date</div>
-                <div className='font-bold t-title w-1/12'></div>
-            </div>
+
         </div>
     )
 }
