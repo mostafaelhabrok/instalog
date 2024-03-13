@@ -6,7 +6,7 @@ import styles from '../events.module.css'
 const AddEventButton = () => {
     return (
         <div className={`${styles.add_event}`}>
-            <button onClick={() => {
+            <button title='Create Event' onClick={() => {
                 (document.getElementById('event_form')as any).showModal();
             }}>
                 <i className="fa-solid fa-circle-plus fa-3x"></i>
