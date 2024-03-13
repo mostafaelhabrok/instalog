@@ -4,18 +4,13 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Event } from '../components/EventsTable'
 
-interface Props{
-    sort:string;
-    order:string;
-}
 
 
-const SearchForm = (props:Props) => {
+
+const SearchForm = () => {
     const [filter, setFilter] = useState('');
 
-    const sort = props.sort;
-    const order = props.order;
-    const queryString = `?filter=${filter}&sort=${sort}&order=${order}`;
+    const queryString = `?filter=${filter}`;
 
 
 
@@ -36,12 +31,12 @@ const SearchForm = (props:Props) => {
                     }
                     }
                 />
-                {/* <button className="no-radius btn bordered"> */}
+
                 <Link className='btn no-radius bordered' href={`/events${queryString}`}>
                     <i className="fa-solid fa-filter"></i>
                     Filter
                 </Link>
-                {/* </button> */}
+
                 <button className="no-radius btn bordered">
                     <i className="fa-solid fa-file-export"></i>
                     Export

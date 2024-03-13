@@ -16,25 +16,27 @@ export async function GET(request: NextRequest) {
 // console.log(take)
 
     // console.log(filter)
+    const filterOptions = (filter && filter != 'undefined') ?
+    {
+        OR: [
+            { actor_id: { contains: filter } },
+            { actor_name: { contains: filter } },
+            { actor_email: { contains: filter } },
+            { target_id: { contains: filter } },
+            { target_name: { contains: filter } },
+            { target_email: { contains: filter } },
+            { action_id: { contains: filter } },
+            { action_name: { contains: filter } }
+        ]
+    } : {};
+
     const events = await prisma.event.findMany(
         {
             take: 
                 (take && take != 'undefined') ?
                     parseInt(take) : 5,
-            where:
-                (filter && filter != 'undefined') ?
-                    {
-                        OR: [
-                            { actor_id: { contains: filter } },
-                            { actor_name: { contains: filter } },
-                            { actor_email: { contains: filter } },
-                            { target_id: { contains: filter } },
-                            { target_name: { contains: filter } },
-                            { target_email: { contains: filter } },
-                            { action_id: { contains: filter } },
-                            { action_name: { contains: filter } }
-                        ]
-                    } : {},
+            where: filterOptions
+                ,
             // orderBy:
             //     (sort && sort != 'undefined' && order && order != 'undefined') ?
             //         {
@@ -43,7 +45,9 @@ export async function GET(request: NextRequest) {
         }
 
     );
-    const eventTotal = await prisma.event.count();
+    const eventTotal = await prisma.event.count({
+        where: filterOptions
+    });
     // console.log(events);
     let eventObjects: Event[] = [];
     for (let i = 0; i < events.length; i++) {
