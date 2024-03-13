@@ -49,27 +49,6 @@ const EventItem = (props: Props) => {
 
     return (
         <>
-            {/* <li className='my-4'>
-                <div className='flex t-head px-10 mt-5 '>
-                    <div className="flex items-center gap-3 w-4/12">
-
-                        <div className="avatar" style={{ background: getAvatarColor(event.actor_name.charAt(0).toUpperCase()) }}>
-                            {event.actor_name.charAt(0).toUpperCase()}
-                        </div>
-
-                        <div>
-                            <div className="font-bold"> {event.actor_email} </div>
-                        </div>
-                    </div>
-                    <div className='font-bold t-title w-4/12'> {event.action.name} </div>
-                    <div className='font-bold t-title w-3/12'> {formattedDateTime} </div>
-                    <div className='font-bold t-title w-1/12'><DetailsButton id={event.id} /></div>
-                </div>
-            </li>
-            <EventDetails id={event.id} /> */}
-
-
-
             <li className='my-4'>
                 <div className="collapse ">
                     <input type="checkbox" />
@@ -82,16 +61,16 @@ const EventItem = (props: Props) => {
                                 </div>
 
                                 <div>
-                                    <div className="font-bold"> {event.actor_email} </div>
+                                    <div className=""> {event.actor_email} </div>
                                 </div>
                             </div>
-                            <div className='font-bold t-title w-4/12'> {event.action.name} </div>
-                            <div className='font-bold t-title w-3/12'> {formattedDateTime} </div>
-                            <div className='font-bold t-title w-1/12'><DetailsButton id={event.id} /></div>
+                            <div className=' t-title w-4/12'> {event.action.name} </div>
+                            <div className=' t-title w-3/12'> {formattedDateTime} </div>
+                            <div className=' t-title w-1/12'><DetailsButton id={event.id} /></div>
                         </div>
                     </div>
                     <div className="collapse-content">
-                        <EventDetails id={event.id} />
+                        <EventDetails event={event} />
                     </div>
                 </div>
             </li>
