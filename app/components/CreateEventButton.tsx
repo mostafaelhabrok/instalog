@@ -2,6 +2,7 @@
 
 import React from 'react'
 import $ from 'jquery';
+import Link from 'next/link';
 // import schema from "../api/events/schema";
 
 
@@ -10,6 +11,7 @@ const CreateEventButton = () => {
         
 
     return (
+        <>
         <button
             onClick={() => {
                 $("#error_alert").parent().hide(400);
@@ -55,7 +57,7 @@ const CreateEventButton = () => {
                         $(".alert-success").show(600).css('display','flex');
                         // $(".alert-success").hide(400);
                         setTimeout(() => { $(".alert-success").hide(400); }, 3000);
-
+                        document.getElementById('hidden_link')?.click();
                     },
                     error(e) {
                         let msg = '';
@@ -78,6 +80,8 @@ const CreateEventButton = () => {
         >
             Create
         </button>
+        <Link href='/events' id='hidden_link' className='hidden'>Refresh</Link>
+        </>
     )
 }
 
