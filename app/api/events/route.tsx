@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
 import prisma from '@/prisma/client';
 // import { randomUUID } from "crypto";
-import { Event } from '../../components/EventsTable'
+import { Event } from '../../components/events/EventsTable'
 
 
 export async function GET(request: NextRequest) {

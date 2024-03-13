@@ -2,18 +2,18 @@
 
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Event } from '../components/EventsTable'
-import useEvent from '../hooks/hook'
+import { Event } from './EventsTable'
 
 interface Props{
     events:Event[];
     onToggle: any;
     isLive:boolean;
+    filter:string;
 }
 
 
 const SearchForm = (props: Props) => {
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState(props.filter);
 
     const queryString = `?filter=${filter}`;
 

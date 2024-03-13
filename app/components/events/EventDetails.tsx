@@ -1,5 +1,5 @@
 import React from 'react'
-import { Event } from '../components/EventsTable'
+import { Event } from './EventsTable'
 
 
 interface Props {

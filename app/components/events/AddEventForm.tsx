@@ -1,7 +1,7 @@
 
 import React from 'react'
 import CreateEventButton from './CreateEventButton'
-import ErrorAlert from './ErrorAlert'
+import ErrorAlert from '../ErrorAlert'
 
 const AddEventForm = () => {
     const date = new Date();
@@ -143,7 +143,7 @@ const AddEventForm = () => {
                             </label>
                         </div>
                         <div className='mt-2'>
-                            <ErrorAlert />
+                            <ErrorAlert hidden='hidden'/>
                         </div>
                         <div className="flex justify-end mt-2">
                             <CreateEventButton />
