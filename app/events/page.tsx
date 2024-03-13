@@ -37,7 +37,7 @@ const EventsPage = async (props: Props) => {
         <>
             <SuccessAlert />
             <div className='m-10'>
-                <SearchForm />
+                <SearchForm events={events}/>
                 <Suspense fallback={<p>Loading...</p>}>
                     <EventsTable events={events} />
                 </Suspense>

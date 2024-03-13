@@ -4,17 +4,49 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Event } from '../components/EventsTable'
 
+interface Props{
+    events:Event[]
+}
 
 
-
-const SearchForm = () => {
+const SearchForm = (props: Props) => {
     const [filter, setFilter] = useState('');
 
     const queryString = `?filter=${filter}`;
 
+    const events = props.events;
+    const exportToCsv = () => {
 
+        const copyEvents = events.map(event => {
+          const copyEvent: any = { ...event }; 
+          Object.assign(copyEvent, {
+            'action_id': event.action.id,
+            'action_object': event.action.object,
+            'action_name': event.action.name,
+            'meta_redirect': event.metadata.redirect,
+            'meta_description': event.metadata.description,
+            'meta_x_request_id': event.metadata.x_request_id
+          });
+          delete copyEvent.action;
+          delete copyEvent.metadata;
+          return copyEvent;
+        });
+      
+        const coulmn_headers = Object.keys(copyEvents[0]);
+        const header = coulmn_headers.join(",") + "\n";
+        const rows = copyEvents.map(event => Object.values(event).join(",")).join("\n");
 
+        const data = "data:text/csv;charset=utf-8," + header + rows;
+        const result = encodeURI(data);
 
+        const link = document.createElement("a");
+        link.setAttribute("href", result);
+        link.setAttribute("download", "events.csv");
+      
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
 
 
     return (
@@ -37,7 +69,7 @@ const SearchForm = () => {
                     Filter
                 </Link>
 
-                <button className="no-radius btn bordered">
+                <button onClick={exportToCsv} className="no-radius btn bordered">
                     <i className="fa-solid fa-file-export"></i>
                     Export
                 </button>
