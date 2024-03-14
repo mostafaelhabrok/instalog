@@ -26,16 +26,21 @@ const EventsPage = (props: Props) => {
 
     const filter = props.searchParams.filter;
     let take = props.searchParams.take ?? 5;
+    const url = /* process.env.BASE_URL + */ '/api/events' + '?filter=' + filter + '&take=' + take;
 
     const [live, setLive] = useState(false);
+
+
+    const { data, isLoading, error , mutate } = useEvent(url, live);
 
     const toggleLive = () => {
         setLive(!live);
     };
 
-    const url = /* process.env.BASE_URL + */ '/api/events' + '?filter=' + filter + '&take=' + take;
+    const updateData = () => {
+        mutate();
+    };
 
-    const { data, isLoading, error } = useEvent(url, live);
 
     // console.log(error)
     if (error) return <ErrorAlert error={error} />
@@ -54,7 +59,7 @@ const EventsPage = (props: Props) => {
     return (
         <>
             <SuccessAlert />
-            <div className='m-10'>
+            <div className='m-14'>
                 <div>
                     <SearchForm filter={filter} events={events} onToggle={toggleLive} isLive={live} />
                     <Suspense fallback={<Loading />}>
@@ -64,7 +69,7 @@ const EventsPage = (props: Props) => {
                 </div>
             </div>
             <AddEventButton />
-            <AddEventForm />
+            <AddEventForm updateData={updateData}/>
         </>
 
     )

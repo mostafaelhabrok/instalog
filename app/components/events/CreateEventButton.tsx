@@ -7,17 +7,14 @@ import Link from 'next/link';
 
 const CreateEventButton = () => {
 
-        
+
 
     return (
         <>
-        <button
-            type="submit"
-            className="btn btn-primary"
-        >
-            Create
-        </button>
-        <Link href='/events' id='hidden_link' className='hidden'>Refresh</Link>
+            <button type="submit" className="btn btn-primary">
+                Create
+                <span id='create_event_btn' className=""></span>
+            </button>
         </>
     )
 }

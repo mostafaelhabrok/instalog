@@ -6,16 +6,12 @@ function useEvent(url:string,live:boolean = false) {
         url
         , { cache: 'no-store' }).then(res => res.json())
 
-    const { data, error, isLoading } = useSWR(url, fetcher, 
+    const {  data, isLoading, error , mutate } = useSWR(url, fetcher, 
         live ? {
             refreshInterval: 1000 
         }: {});
 
-    return {
-        data,
-        isLoading,
-        error
-      }
+    return {data, isLoading, error , mutate}
 }
 
 export default useEvent

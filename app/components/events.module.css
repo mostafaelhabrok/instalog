@@ -87,6 +87,10 @@
     }
   }
 
+  .successAlert{
+    top: 5%;
+  }
+  
   [data-theme=dark] .borderColor {
     border-color: gray;
   }

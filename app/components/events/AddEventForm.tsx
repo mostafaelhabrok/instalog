@@ -6,11 +6,17 @@ import CustomInput from './CustomInput';
 import { useForm } from 'react-hook-form';
 import $ from 'jquery';
 
-const AddEventForm = () => {
+interface Props{
+    updateData:any;
+}
+
+const AddEventForm = (props:Props) => {
     const date = new Date();
     const localOffsetMinutes = date.getTimezoneOffset();
     date.setMinutes(date.getMinutes() - localOffsetMinutes);
     const isoStringWithOffset = date.toISOString().substring(0, 16).replace('Z', '');
+
+    const updateData = props.updateData;
 
     const {
         register,
@@ -38,6 +44,7 @@ const AddEventForm = () => {
                             // console.log(data);
                             $("#error_alert").parent().fadeOut(400);
 
+                            $("#create_event_btn").addClass('loading loading-spinner');
 
                             const occurred_at = new Date($("#occurred_at").val() as string);
                             // console.log(occurred_at);
@@ -80,8 +87,8 @@ const AddEventForm = () => {
                                     reset();
                                     $(".alert-success").fadeIn(600).css('display', 'flex');
                                     setTimeout(() => { $(".alert-success").fadeOut(400); }, 3000);
-
-                                    document.getElementById('hidden_link')?.click();
+                                    
+                                    updateData();
                                 },
                                 error(e) {
                                     let msg = '';
@@ -93,6 +100,9 @@ const AddEventForm = () => {
                                     }
                                     $("#error_alert").text(msg).parent().fadeIn(400).css('display', 'flex');
 
+                                },
+                                complete(){
+                                    $("#create_event_btn").removeClass('loading loading-spinner');
                                 }
                             });
 
