@@ -63,7 +63,7 @@ const SearchForm = (props: Props) => {
                 <input
                     type="text"
                     placeholder="Search name, email or action..."
-                    className={`focus:outline-none focus:bg-white input input-bordered background w-full ${styles.noRadius} ${styles.leftRadius} ${styles.backColor} ${styles.borderColor} `}
+                    className={`focus:outline-none focus:bg-white input input-bordered background w-full ${styles.focusDark} ${styles.noRadius} ${styles.leftRadius} ${styles.backColor} ${styles.borderColor} `}
                     value={filter && filter != 'undefined' ? filter : ''}
                     onChange={(e) => {
                         setFilter(e.target.value);

@@ -22,7 +22,7 @@ const LoadMore = (props:Props) => {
 
 
     return (
-        <div className={`border ${styles.bottomRadius} load_more `}>
+        <div className={`border ${styles.bottomRadius} ${styles.loadMore} load_more `}>
             <Link className={`w-full btn ${styles.noRadius} ${styles.bottomRadius} ${disable}`} href={`/events${queryString}`}>Load More</Link>
         </div>
     )

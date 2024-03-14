@@ -36,7 +36,7 @@ const AddEventForm = () => {
                     <form onSubmit={handleSubmit(
                         (data) => {
                             // console.log(data);
-                            $("#error_alert").parent().hide(400);
+                            $("#error_alert").parent().fadeOut(400);
 
 
                             const occurred_at = new Date($("#occurred_at").val() as string);
@@ -78,24 +78,21 @@ const AddEventForm = () => {
                                     $("#close_form").trigger('submit');
                                     clearErrors();
                                     reset();
-                                    $(".alert-success").show(600).css('display', 'flex');
-                                    // $(".alert-success").hide(400);
-                                    setTimeout(() => { $(".alert-success").hide(400); }, 3000);
+                                    $(".alert-success").fadeIn(600).css('display', 'flex');
+                                    setTimeout(() => { $(".alert-success").fadeOut(400); }, 3000);
+
                                     document.getElementById('hidden_link')?.click();
                                 },
                                 error(e) {
                                     let msg = '';
 
                                     for (let i = 0; i < e.responseJSON.length; i++) {
-                                        // if (i % 2 == 0) msg += '<div class="flex">';
-                                        // msg += '<div class="w-1/2">'
-                                        msg += e.responseJSON[i].path[0] + ': ' + e.responseJSON[i].message + ', ';
-                                        // msg += '</div>'
-                                        // if (i % 2 == 1) msg += '</div>';
-                                    }
 
-                                    $("#error_alert").text(msg).parent().show(400).css('display', 'flex');
-                                    // setTimeout(() => { $("#error_alert").parent().hide(400); }, 500);
+                                        msg += e.responseJSON[i].path[0] + ': ' + e.responseJSON[i].message + ', ';
+
+                                    }
+                                    $("#error_alert").text(msg).parent().fadeIn(400).css('display', 'flex');
+
                                 }
                             });
 

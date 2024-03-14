@@ -41,4 +41,9 @@ body {
   --main-color:#f2f2f2;
   --back-color:#dcdcdc;
 }
+[data-theme=dark] {
+  --main-color:#191e24;
+  --back-color:white;
+}
+
 /* @import '../public/events.css'; */

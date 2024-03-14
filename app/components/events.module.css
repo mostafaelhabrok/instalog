@@ -87,4 +87,12 @@
     }
   }
 
-  
+  [data-theme=dark] .borderColor {
+    border-color: gray;
+  }
+  [data-theme=dark] .loadMore {
+    border-color: var(--main-color);
+  }
+  [data-theme=dark] .focusDark:focus {
+    background-color: #1d232a;
+  }
