@@ -3,12 +3,15 @@ import DetailsButton from './DetailsButton'
 import EventDetails from './EventDetails'
 import { Event } from './EventsTable'
 import styles from '../events.module.css'
+import DeleteButton from './DeleteButton'
+import EditButton from './EditButton'
 
 interface Props {
-    event: Event
+    event: Event;
+    updateData:any;
+    getEventData:any;
 }
 
-// Map to store the gradient colors for each letter
 const colorMap: { [key: string]: string[] } = {};
 
 // Function to generate a random gradient background color
@@ -22,9 +25,7 @@ function getRandomGradient(): string {
 }
 
 function getAvatarColor(letter: string): string {
-    // Check if the colors for this letter already exist in the color map
     if (!colorMap[letter]) {
-        // If not, generate two new colors and store them in the map
         const color1 = getRandomGradient();
         const color2 = getRandomGradient();
         colorMap[letter] = [color1, color2];
@@ -52,22 +53,22 @@ const EventItem = (props: Props) => {
         <>
             <li className='my-4'>
                 <div className="collapse ">
-                    <input type="checkbox" />
+                    <input id={`checkbox_${event.id}`} className='hidden' type="checkbox" />
                     <div className="collapse-title p-0 px-5">
                         <div className='flex t-head px-5'>
-                            <div className="flex items-center gap-3 w-4/12">
-
+                            <div className="flex items-center gap-3 w-3/12">
                                 <div className={`${styles.avatar}`} style={{ background: getAvatarColor(event.actor_name.charAt(0).toUpperCase()) }}>
                                     {event.actor_name.charAt(0).toUpperCase()}
                                 </div>
-
                                 <div>
                                     <div className=""> {event.actor_email} </div>
                                 </div>
                             </div>
-                            <div className={` ${styles.tTitle} w-4/12`}> {event.action.name} </div>
-                            <div className={` ${styles.tTitle} w-3/12`}> {formattedDateTime} </div>
-                            <div className={` ${styles.tTitle} w-1/12`}><DetailsButton id={event.id} /></div>
+                            <div className={` ${styles.tTitle} w-3/12 items-center flex`}> {event.action.name} </div>
+                            <div className={` ${styles.tTitle} w-3/12 items-center flex`}> {formattedDateTime} </div>
+                            <div className={` ${styles.tTitle} w-1/12 items-center flex`}><DetailsButton id={event.id} /></div>
+                            <div className={` ${styles.tTitle} w-1/12 items-center flex`}><EditButton  getEventData={props.getEventData} id={event.id}/> </div>
+                            <div className={` ${styles.tTitle} w-1/12 items-center flex`}><DeleteButton updateData={props.updateData} id={event.id} /> </div>
                         </div>
                     </div>
                     <div className="collapse-content">

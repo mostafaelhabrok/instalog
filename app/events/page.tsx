@@ -4,7 +4,6 @@ import React, { Suspense, useState } from 'react'
 import SearchForm from '../components/events/SearchForm'
 import EventsTable from '../components/events/EventsTable'
 import LoadMore from '../components/events/LoadMore'
-import AddEventButton from '../components/events/AddEventButton'
 import AddEventForm from '../components/events/AddEventForm'
 import SuccessAlert from '../components/SuccessAlert'
 import { Event } from '../components/events/EventsTable'
@@ -30,31 +29,37 @@ const EventsPage = (props: Props) => {
 
     const [live, setLive] = useState(false);
 
+    let [event, setEvent] = useState({});
 
     const { data, isLoading, error , mutate } = useEvent(url, live);
 
+    // toggle live state 
     const toggleLive = () => {
         setLive(!live);
     };
 
+    // update data after adding or editing or deleting
     const updateData = () => {
         mutate();
     };
 
+    // get event data to edit
+    const getEventData = (id:any) => {
+        event = events.filter((v) => {return v.id == id})[0];
+        setEvent(event);
 
-    // console.log(error)
-    if (error) return <ErrorAlert error={error} />
+    };
+
+    // clear event data when creating new one
+    const clearEvent = () => {
+        setEvent({});
+    };
+
+    if (error) return <ErrorAlert id='main_error_alert' error={error} />
     if (isLoading) return <Loading />
 
-    // const res = await fetch(
-    //     process.env.BASE_URL + '/api/events' + '?filter=' + filter + '&take=' + take
-    //     , { cache: 'no-store' });
-    // let data = await res.json();
     let events: Event[] = data.eventObjects;
     let eventTotal = data.eventTotal as number;
-
-
-
 
     return (
         <>
@@ -63,13 +68,12 @@ const EventsPage = (props: Props) => {
                 <div>
                     <SearchForm filter={filter} events={events} onToggle={toggleLive} isLive={live} />
                     <Suspense fallback={<Loading />}>
-                        <EventsTable events={events} />
+                        <EventsTable getEventData={getEventData} updateData={updateData} events={events} />
                     </Suspense>
                     <LoadMore eventTotal={eventTotal} take={take} filter={filter} />
                 </div>
             </div>
-            <AddEventButton />
-            <AddEventForm updateData={updateData}/>
+            <AddEventForm clearEvent={clearEvent} event={event} updateData={updateData}/>
         </>
 
     )

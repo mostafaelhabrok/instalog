@@ -90,6 +90,11 @@
   .successAlert{
     top: 5%;
   }
+
+  .detailsButton{
+    transition: transform 0.3s ease;
+  }
+  
   
   [data-theme=dark] .borderColor {
     border-color: gray;

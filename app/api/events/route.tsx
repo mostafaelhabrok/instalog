@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
 import prisma from '@/prisma/client';
-// import { randomUUID } from "crypto";
-// import { Event } from '../../components/events/EventsTable'
 
 import  {InstaLog}  from 'instalog'; // new library created
 // import  {InstaLog}  from '../../../../library/instalog'; // new library created

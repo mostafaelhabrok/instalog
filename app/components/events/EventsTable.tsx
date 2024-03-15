@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import EventItem from './EventItem'
-import Link from 'next/link';
 import { sort } from 'fast-sort';
 import styles from '../events.module.css'
 
@@ -32,6 +31,8 @@ export interface Event {
 
 interface Props {
   events: Event[];
+  updateData: any;
+  getEventData: any;
 }
 
 const EventsTable = (props: Props) => {
@@ -44,49 +45,42 @@ const EventsTable = (props: Props) => {
     occurred_at: 'asc',
   });
 
-
   // Update state when props.events changes
   useEffect(() => {
     setEvents(props.events);
   }, [props.events]);
 
-
-
-  // events  = props.events;
-  const handleSort = (_sort:keyof Event) => {
+  // sorting events
+  const handleSort = (_sort: keyof Event) => {
     const currentDirection = sortDirections[_sort];
-
     setEvents(sort(events)[currentDirection](e => _sort != 'action' ? e[_sort] : e.action.name));
     const nextDirection = currentDirection === 'asc' ? 'desc' : 'asc';
     setSortDirections({ ...sortDirections, [_sort]: nextDirection });
   };
 
-
-  
-
   return (
     <>
       <div className={`overflow-x-auto px-5 pb-3 ${styles.searchForm} `}>
         <div className='flex t-head px-5 mt-5'>
-          <div className={`font-bold ${styles.tTitle} w-4/12`}>
+          <div className={`font-bold ${styles.tTitle} w-3/12`}>
             <button title={`Sort ${sortDirections.actor_email}`} onClick={() => handleSort('actor_email')}>ACTOR <i className="fa-solid fa-sort"></i></button>
           </div>
-          <div className={`font-bold ${styles.tTitle} w-4/12`}>
-          <button title={`Sort ${sortDirections.action}`} onClick={() => handleSort('action')}>ACTION <i className="fa-solid fa-sort"></i></button>
+          <div className={`font-bold ${styles.tTitle} w-3/12`}>
+            <button title={`Sort ${sortDirections.action}`} onClick={() => handleSort('action')}>ACTION <i className="fa-solid fa-sort"></i></button>
           </div>
           <div className={`font-bold ${styles.tTitle} w-3/12`}>
-          <button title={`Sort ${sortDirections.occurred_at}`} onClick={() => handleSort('occurred_at')}>DATE <i className="fa-solid fa-sort"></i></button>
+            <button title={`Sort ${sortDirections.occurred_at}`} onClick={() => handleSort('occurred_at')}>DATE <i className="fa-solid fa-sort"></i></button>
           </div>
-          <div className={`font-bold ${styles.tTitle} w-1/12`}></div>
         </div>
       </div>
       <div className={`overflow-x-auto ${styles.tBody}  overflow-y-auto max-h-96`}>
-        <ul className={`${styles.mobileWrap}`}>
-          {events.map(event =>
-            <EventItem key={event.event_id} event={event} />
-          )}
-
-        </ul>
+        {events.length == 0 ? <div className='text-xl font-bold flex justify-center p-5'>No Events Found.</div> :
+          <ul className={`${styles.mobileWrap}`}>
+            {events.map(event =>
+              <EventItem getEventData={props.getEventData} updateData={props.updateData} key={event.event_id} event={event} />
+            )}
+          </ul>
+        }
       </div>
     </>
   )

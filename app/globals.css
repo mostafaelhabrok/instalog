@@ -45,5 +45,7 @@ body {
   --main-color:#191e24;
   --back-color:white;
 }
-
-/* @import '../public/events.css'; */
+.rotated{
+  transform: rotate(90deg);
+  transform-origin: center center;
+}

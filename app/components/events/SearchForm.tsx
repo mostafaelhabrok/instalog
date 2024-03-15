@@ -5,11 +5,11 @@ import React, { useState } from 'react'
 import { Event } from './EventsTable'
 import styles from '../events.module.css'
 
-interface Props{
-    events:Event[];
+interface Props {
+    events: Event[];
     onToggle: any;
-    isLive:boolean;
-    filter:string;
+    isLive: boolean;
+    filter: string;
 }
 
 
@@ -25,20 +25,22 @@ const SearchForm = (props: Props) => {
     const exportToCsv = () => {
 
         const copyEvents = events.map(event => {
-          const copyEvent: any = { ...event }; 
-          Object.assign(copyEvent, {
-            'action_id': event.action.id,
-            'action_object': event.action.object,
-            'action_name': event.action.name,
-            'meta_redirect': event.metadata.redirect,
-            'meta_description': event.metadata.description,
-            'meta_x_request_id': event.metadata.x_request_id
-          });
-          delete copyEvent.action;
-          delete copyEvent.metadata;
-          return copyEvent;
+
+            // make a copy to add fileds in the root on the object structure.
+            const copyEvent: any = { ...event };
+            Object.assign(copyEvent, {
+                'action_id': event.action.id,
+                'action_object': event.action.object,
+                'action_name': event.action.name,
+                'meta_redirect': event.metadata.redirect,
+                'meta_description': event.metadata.description,
+                'meta_x_request_id': event.metadata.x_request_id
+            });
+            delete copyEvent.action;
+            delete copyEvent.metadata;
+            return copyEvent;
         });
-      
+
         const coulmn_headers = Object.keys(copyEvents[0]);
         const header = coulmn_headers.join(",") + "\n";
         const rows = copyEvents.map(event => Object.values(event).join(",")).join("\n");
@@ -49,11 +51,11 @@ const SearchForm = (props: Props) => {
         const link = document.createElement("a");
         link.setAttribute("href", result);
         link.setAttribute("download", "events.csv");
-      
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-      };
+    };
 
 
     return (
@@ -81,8 +83,7 @@ const SearchForm = (props: Props) => {
                     Export
                 </button>
                 <button onClick={(e) => {
-                        onToggle();
-                        
+                    onToggle();
                 }} className={`${styles.noRadius} btn bordered ${styles.rightRadius} ${styles.borderColor} ${isLive ? 'btn-active btn-warning' : ''}`}>
                     <i className={`fa-solid fa-record-vinyl ${styles.liveIcon}`}></i>
                     Live

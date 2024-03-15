@@ -7,10 +7,10 @@ import $ from 'jquery';
 const NavBar = () => {
     return (
         <div className="navbar bg-base-300">
-            <div className="navbar-start w-1/12">
+            <div className="navbar-start w-3/12 flex justify-center">
                 <Link href='/' className="btn btn-ghost text-xl">InstaLog</Link>
             </div>
-            <div className="navbar-center w-10/12 hidden lg:flex">
+            <div className="navbar-center w-8/12 flex justify-start">
                 <ul className="menu menu-horizontal px-1">
                     <li>
                         <Link href='/events' className="">Events</Link>

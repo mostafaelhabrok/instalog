@@ -9,26 +9,15 @@ interface Props{
 }
 
 const DetailsButton = (props: Props) => {
+    const id = props.id;
     return (
-        <button onClick={
+        <button id={id} onClick={
             () => {
-                // $('#' + props.id).toggleClass('hidden');
-                // $('.card').not('#' + props.id).addClass('hidden');
-
-                // let m = 0;
-                // $('#' + props.id).siblings('li').css('margin-top', m);
-                // $('.load_more').css('margin-top', m);
-                
-                // if (!$('#' + props.id).hasClass('hidden')) m = parseInt($('#' + props.id).css('height')) ;
-
-                // if($('#' + props.id).next('li').first().length) $('#' + props.id).next('li').first().css('margin-top', m * 1.2);
-                // else $('.load_more').css('margin-top', m);
-
-
-
+                $("#checkbox_" + id).trigger('click');
+                $("#" + id).toggleClass('rotated');
             }
         }
-            className="btn btn-ghost btn-xs">
+            className={`${styles.detailsButton} hover:bg-inherit btn btn-ghost btn-s`}>
             <i className={`fa-solid fa-chevron-right ${styles.detailsArrow}`}></i>
         </button>
     )

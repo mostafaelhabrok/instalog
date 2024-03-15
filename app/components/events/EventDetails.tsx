@@ -83,11 +83,6 @@ const EventDetails = (props: Props) => {
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
     )
 }

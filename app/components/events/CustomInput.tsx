@@ -1,6 +1,5 @@
 
 import React from 'react'
-// import { useForm } from 'react-hook-form';
 
 interface Props{
     label:string;
@@ -13,17 +12,21 @@ interface Props{
 }
 
 const CustomInput = (props: Props) => {
-
     const register = props.register;
     const errors = props.errors;
+    const label = props.label;
+    const type = props.type;
+    const id = props.id;
+    const className = props.class;
+
     return (
-        <div className={props.class}>
+        <div className={className}>
             <label className="form-control w-full">
                 <div className="label">
-                    <span className="label-text">{props.label}</span>
+                    <span className="label-text">{label}</span>
                 </div>
-                <input {...register} defaultValue={props.defaultValue} type={props.type} placeholder={props.label} id={props.id} className="input input-bordered w-full" />
-                {errors && <p className='text-red-500'>{props.label} is required.</p>}
+                <input {...register} /* defaultValue={props.defaultValue} */ type={type} placeholder={label} id={id} className="input input-bordered w-full" />
+                {errors && <p className='text-red-500'>{label} is required.</p>}
             </label>
         </div>
     )
