@@ -17,11 +17,13 @@ const DeleteButton = (props: Props) => {
 
     const submitDelete = function(){
         $("#delete_event_btn").addClass('loading loading-spinner');
-    
+        const event_id = $("#delete_confirm").attr('data-event_id');
+
         $.ajax({
-            url: `/api/events/${id}`,
+            url: `/api/events/${event_id}`,
             method: 'DELETE',
             success() {
+                $("#delete_close_form").trigger('submit');
                 $(".alert-success span").text('Event Deleted Successfully.');
                 $(".alert-success").fadeIn(600).css('display', 'flex');
                 setTimeout(() => { $(".alert-success").fadeOut(400); }, 3000);
@@ -43,11 +45,12 @@ const DeleteButton = (props: Props) => {
             <button onClick={() => {
                 (document.getElementById('delete_confirm') as any).showModal();
                 $("#delete_error_alert").parent().fadeOut(400);
+                $("#delete_confirm").attr('data-event_id',id);
             }} className='btn btn-ghost btn-s' ><i className="fa-solid fa-trash-can "></i></button>
 
             <dialog id="delete_confirm" className="modal">
                 <div className="modal-box">
-                    <form method="dialog">
+                    <form id="delete_close_form" method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
