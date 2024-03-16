@@ -1,36 +1,191 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Event Log App
+
+This is a small app that provides logging of events that happen in some system.
+App used stack:
+* Next.js.
+* TailwindCss.
+* Daisy UI.
+* Prisma.
+* PostgreSql.
+* SWR.
+All written in TypeScript.
 
 ## Getting Started
 
-First, run the development server:
+To get started, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Clone the repository:**
+
+```
+git clone https://github.com/mostafaelhabrok/instalog.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+cd instalog
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+npm install
+```
 
-## Learn More
+3. **Add environmet variables:**
+create .env.local file in the project root then add the following:
 
-To learn more about Next.js, take a look at the following resources:
+```
+POSTGRES_URL="postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Start the service:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
+The service will start running at [localhost](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Setting Up with Docker
+
+To get started, follow these steps:
+
+1. **Clone the repository:**
+
+```
+git clone https://github.com/mostafaelhabrok/instalog.git
+```
+
+2. **Build the Docker Image:**
+
+```
+docker build -t instalog .
+```
+
+3. **Run the Docker Container:**
+
+```
+docker run -p 3000:3000 -e POSTGRES_URL=postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require instalog
+```
+
+The service will start running at [localhost](http://localhost:3000).
+
+## API Endpoint
+
+### Filter Events
+You can filter events based on specific criteria by sending a GET request to the /api/events endpoint with the following query parameters:
+
+filter: Search for events by actor, target or action.
+
+#### Example usage:
+GET /api/events?filter=mostafa
+This will return a filtered list of events matching the specified criteria.
+
+### Add Event
+You can add new event by sending a POST request to /api/events endpoint with the event object to add in the request body.
+
+#### Example usage:
+POST /api/events
+body: {
+            actor_id: '',
+            actor_name: '',
+            actor_email: '',
+            group: '',
+            action: {
+                id: '',
+                name: ''
+            },
+            target_id: '',
+            target_name: '',
+            target_email: '',
+            location: '',
+            occurred_at: '',
+            metadata: {
+                redirect: '',
+                description: '',
+                x_request_id: ''
+            }
+        }
+This will add new event with the specified values in body.
+
+### Edit Event
+You can edit existing event by sending a PUT request to /api/events/{id} endpoint with the event object to edit in the request body.
+
+#### Example usage:
+PUT /api/events/{id}
+body: {
+            actor_id: '',
+            actor_name: '',
+            actor_email: '',
+            group: '',
+            action: {
+                id: '',
+                name: ''
+            },
+            target_id: '',
+            target_name: '',
+            target_email: '',
+            location: '',
+            occurred_at: '',
+            metadata: {
+                redirect: '',
+                description: '',
+                x_request_id: ''
+            }
+        }
+This will edit the event with the specified values in body.
+
+### Delete Event
+You can delete event by sending a DELETE request to /api/events/{id} endpoint.
+
+#### Example usage:
+DELETE /api/events/{id}
+
+This will delete the event with the specified id.
+
+
+## App Features:
+
+### Sorting Events
+You can sort events ascending or descending based on actor, action or date.
+
+### Filter Events
+You can filter events by searching in actor, target or action for some word.
+
+### Load More
+The app get events five by five and you cand click load more to get more events.
+
+### Event Details
+You can show all event details in a collapse card.
+
+### Export to CSV
+You can export events with their data to csv file.
+
+### Toggle Live
+You can press live button to activate live view of events in real time.
+
+### Add Event
+You can add new event using event form whic will validate your data first.
+
+### Edit Event
+You can edit event after adding with the same form of adding new event.
+
+### Delete Event 
+You can delete event after confirmation message.
+
+### Success or Error Alerts
+App shows success alert on successful add, edit or delete event and shows error alert on failure with error message.
+
+### Dark Mode
+App supports dark mode with one click on button on the Navigation Bar.
+
+### Responsive
+App is responsive on mobile or desktop devices.
+
+### Updated Data
+App updates events table after each successful add, edit or delete request.
+
+
+## InstaLog npm library
+New npm library is published and used in the app as a dependency for listing events, adding events, editing events, deleting events.
+The library is published on: [instalog npm](https://www.npmjs.com/package/instalog)
