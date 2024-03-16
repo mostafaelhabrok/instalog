@@ -3,9 +3,8 @@ import schema from "./schema";
 import prisma from '@/prisma/client';
 
 import  {InstaLog}  from 'instalog'; // new library created
-// import  {InstaLog}  from '../../../../library/instalog'; // new library created
 
-
+// get events
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
     const filter = params.get('filter') as string;
@@ -15,6 +14,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ eventObjects: res.result.eventObjects, eventTotal: res.result.eventTotal }, { status: res.status });
 }
 
+// create events
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const instalog = new InstaLog('SECRET_KEY',{prisma:prisma,schema:schema});

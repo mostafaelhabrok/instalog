@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-
+// validation schema
 const schema = z.object({
     actor_id: z.string().min(1),
     actor_name: z.string().min(1),
@@ -17,7 +17,7 @@ const schema = z.object({
     occurred_at: z.string().datetime().default((new Date()).toISOString()),
     metadata: z.object({
         redirect: z.string().min(1),
-        description: z.string().min(1),
+        description: z.string().optional(),
         x_request_id: z.string().min(1)
     }),
 });

@@ -15,8 +15,8 @@ const AddEventButton = (props: Props) => {
     return (
         <div className={`${styles.add_event}`}>
             <button title='Create Event' onClick={() => {
-                clearEvent();
-                reset();
+                clearEvent(); // clear event object
+                reset(); // empty the form
                 
                 (document.getElementById('event_form') as any).showModal();
                 $("#event_form").removeAttr('data-event_id');

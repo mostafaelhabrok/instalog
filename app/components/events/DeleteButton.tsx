@@ -17,6 +17,7 @@ const DeleteButton = (props: Props) => {
 
     const submitDelete = function(){
         $("#delete_event_btn").addClass('loading loading-spinner');
+        // get event id to delete
         const event_id = $("#delete_confirm").attr('data-event_id');
 
         $.ajax({
@@ -27,6 +28,7 @@ const DeleteButton = (props: Props) => {
                 $(".alert-success span").text('Event Deleted Successfully.');
                 $(".alert-success").fadeIn(600).css('display', 'flex');
                 setTimeout(() => { $(".alert-success").fadeOut(400); }, 3000);
+                // update table of events
                 updateData();
             },
             error(e) {

@@ -14,6 +14,7 @@ interface Props {
 
 
 const SearchForm = (props: Props) => {
+    // set filter in state
     const [filter, setFilter] = useState(props.filter);
 
     const queryString = `?filter=${filter}`;
@@ -22,6 +23,8 @@ const SearchForm = (props: Props) => {
     const isLive = props.isLive;
 
     const events = props.events;
+
+    // export to csv 
     const exportToCsv = () => {
 
         const copyEvents = events.map(event => {
@@ -41,8 +44,10 @@ const SearchForm = (props: Props) => {
             return copyEvent;
         });
 
+        // first row is header
         const coulmn_headers = Object.keys(copyEvents[0]);
         const header = coulmn_headers.join(",") + "\n";
+        // rows of events data
         const rows = copyEvents.map(event => Object.values(event).join(",")).join("\n");
 
         const data = "data:text/csv;charset=utf-8," + header + rows;

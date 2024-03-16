@@ -17,7 +17,7 @@ interface Props {
 
 const AddEventForm = (props: Props) => {
 
-    // date convert
+    // date convert to iso
     const event: Event = props.event;
     const date = Object.keys(event).length > 0 ? new Date(event.occurred_at) : new Date();
     const localOffsetMinutes = date.getTimezoneOffset();
@@ -27,12 +27,12 @@ const AddEventForm = (props: Props) => {
 
     const updateData = props.updateData;
 
+    // init validation functions
     const {register,handleSubmit,reset,formState: { errors },clearErrors} = useForm({defaultValues: event});
-
     useEffect(() => {reset(event);}, [reset, event]);
-
     const _reset = function () {setTimeout(() => {reset();}, 1)};
 
+    //event form on submition
     const onEventFormSubmit = function() {
         $("#error_alert").parent().fadeOut(400);
         $("#create_event_btn").addClass('loading loading-spinner');
@@ -40,6 +40,7 @@ const AddEventForm = (props: Props) => {
         const occurred_at = new Date($("#occurred_at").val() as string);
         const occurred_at_iso = occurred_at.toISOString();
 
+        // event object
         const obj = {
             actor_id: $("#actor_id").val(),
             actor_name: $("#actor_name").val(),
@@ -63,12 +64,13 @@ const AddEventForm = (props: Props) => {
 
         const event_id = $("#event_form").attr('data-event_id');
         let url, method, succes_msg;
-        if (event_id) {
+        // check if add or edit
+        if (event_id) { // edit
             url = `/api/events/${event_id}`;
             method = 'PUT';
             succes_msg = 'Event Edited Successfully.';
         }
-        else {
+        else { // add
             url = `/api/events`;
             method = 'POST';
             succes_msg = 'Event Added Successfully.';
@@ -81,14 +83,17 @@ const AddEventForm = (props: Props) => {
             data: JSON.stringify(obj),
             success() {
                 $("#close_form").trigger('submit');
+
+                // clear any validation errors and reset form
                 clearErrors();
                 reset();
 
                 $(".alert-success span").text(succes_msg);
                 $(".alert-success").fadeIn(600).css('display', 'flex');
                 setTimeout(() => { $(".alert-success").fadeOut(400); }, 3000);
-
-                updateData(); // update the table events after success
+                
+                // update the table events after success
+                updateData(); 
             },
             error(e) {
                 let msg = '';
@@ -142,14 +147,14 @@ const AddEventForm = (props: Props) => {
                                 <CustomInput register={register('metadata.redirect', { required: true }) } errors={errors.metadata?.redirect} label='Redirect' id='redirect' type='text' class='w-1/2' />
                                 <CustomInput register={register('metadata.x_request_id', { required: true }) } errors={errors.metadata?.x_request_id} label='Request ID' id='request_id' type='text' class='w-1/2' />
                             </div>
-                            <CustomInput defaultValue={Object.keys(event).length > 0 ? event.group : ''} register={{ ...register('group', { required: true }) }} errors={errors.group} label='Group' id='group' type='text' class='' />
+                            <CustomInput register={register('group', { required: true }) } errors={errors.group} label='Group' id='group' type='text' class='' />
                             <div>
                                 <label className="form-control w-full">
                                     <div className="label">
                                         <span className="label-text">Description</span>
                                     </div>
-                                    <textarea {...register('metadata.description', { required: true })} placeholder="Description" id='description' className="textarea textarea-bordered h-24" />
-                                    {errors.metadata?.description && <p className='text-red-500'>Description is required.</p>}
+                                    <textarea /* {...register('metadata.description', { required: true })} */ placeholder="Description" id='description' className="textarea textarea-bordered h-24" />
+                                    {/* {errors.metadata?.description && <p className='text-red-500'>Description is required.</p>} */}
                                 </label>
                             </div>
                             <div className='mt-2'>
@@ -158,8 +163,6 @@ const AddEventForm = (props: Props) => {
                             <div className="flex justify-end mt-2">
                                 <CreateEventButton />
                             </div>
-
-
                         </form>
                     </div>
                 </div>

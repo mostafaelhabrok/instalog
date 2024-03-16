@@ -35,6 +35,6 @@ model Event {
   location          String
   occurred_at       DateTime? @default(now())
   meta_redirect     String
-  meta_description  String
+  meta_description  String? @default("")
   meta_x_request_id String
 }

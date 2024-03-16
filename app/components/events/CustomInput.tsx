@@ -25,7 +25,7 @@ const CustomInput = (props: Props) => {
                 <div className="label">
                     <span className="label-text">{label}</span>
                 </div>
-                <input {...register} /* defaultValue={props.defaultValue} */ type={type} placeholder={label} id={id} className="input input-bordered w-full" />
+                <input {...register} type={type} placeholder={label} id={id} className="input input-bordered w-full" />
                 {errors && <p className='text-red-500'>{label} is required.</p>}
             </label>
         </div>

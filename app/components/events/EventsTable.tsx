@@ -4,6 +4,7 @@ import EventItem from './EventItem'
 import { sort } from 'fast-sort';
 import styles from '../events.module.css'
 
+// Event structure
 export interface Event {
   id: string;
   event_id: string;
@@ -36,9 +37,9 @@ interface Props {
 }
 
 const EventsTable = (props: Props) => {
-
+  // set events in state
   const [events, setEvents] = useState<Event[]>(props.events);
-
+  // set sorting in state
   const [sortDirections, setSortDirections] = useState<{ [key: string]: 'asc' | 'desc' }>({
     actor_email: 'asc',
     action: 'asc',
@@ -60,9 +61,9 @@ const EventsTable = (props: Props) => {
 
   return (
     <>
-      <div className={`overflow-x-auto px-5 pb-3 ${styles.searchForm} `}>
-        <div className='flex t-head px-5 mt-5'>
-          <div className={`font-bold ${styles.tTitle} w-3/12`}>
+      <div className={`overflow-x-auto sm:px-5 pb-3 ${styles.searchForm} `}>
+        <div className='flex t-head px-1 sm:px-5 mt-5'>
+          <div className={`font-bold ${styles.tTitle} w-4/12 lg:w-3/12`}>
             <button title={`Sort ${sortDirections.actor_email}`} onClick={() => handleSort('actor_email')}>ACTOR <i className="fa-solid fa-sort"></i></button>
           </div>
           <div className={`font-bold ${styles.tTitle} w-3/12`}>

@@ -24,13 +24,16 @@ interface Props {
 const EventsPage = (props: Props) => {
 
     const filter = props.searchParams.filter;
-    let take = props.searchParams.take ?? 5;
-    const url = /* process.env.BASE_URL + */ '/api/events' + '?filter=' + filter + '&take=' + take;
+    let take = props.searchParams.take ?? 5; // for load more button
+    const url = '/api/events' + '?filter=' + filter + '&take=' + take;
 
+    //set live value in state
     const [live, setLive] = useState(false);
 
+    // set current event to be edited
     let [event, setEvent] = useState({});
 
+    // use swr hook to have real time data
     const { data, isLoading, error , mutate } = useEvent(url, live);
 
     // toggle live state 
@@ -64,7 +67,7 @@ const EventsPage = (props: Props) => {
     return (
         <>
             <SuccessAlert />
-            <div className='m-14'>
+            <div className='m-2 sm:m-14'>
                 <div>
                     <SearchForm filter={filter} events={events} onToggle={toggleLive} isLive={live} />
                     <Suspense fallback={<Loading />}>

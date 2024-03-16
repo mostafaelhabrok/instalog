@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "Event" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "event_id" TEXT NOT NULL,
     "object" TEXT DEFAULT 'event',
     "actor_id" TEXT NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "Event" (
     "location" TEXT NOT NULL,
     "occurred_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "meta_redirect" TEXT NOT NULL,
-    "meta_description" TEXT NOT NULL,
+    "meta_description" TEXT DEFAULT '',
     "meta_x_request_id" TEXT NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")

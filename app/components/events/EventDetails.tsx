@@ -11,8 +11,8 @@ const EventDetails = (props: Props) => {
     return (
         <div className='contents '>
             <div className='space-y-5 px-10 py-5 border-solid rounded-md border '>
-                <div className=' flex w-full'>
-                    <div className='w-1/3'>
+                <div className=' lg:flex w-full'>
+                    <div className='mb-5 lg:w-1/3'>
                         <p className='text-lg mb-2 text-gray-400'>ACTOR</p>
                         <div className='flex'>
                             <p className='w-1/4 text-gray-400'>Name</p>
@@ -27,7 +27,7 @@ const EventDetails = (props: Props) => {
                             <span className='w-3/4 '>{event.actor_id}</span>
                         </div>
                     </div>
-                    <div className='w-1/3'>
+                    <div className='mb-5 lg:w-1/3'>
                         <p className='text-lg mb-2 text-gray-400'>ACTION</p>
                         <div className='flex'>
                             <p className='w-1/4 text-gray-400'>Name</p>
@@ -42,7 +42,7 @@ const EventDetails = (props: Props) => {
                             <span className='w-3/4 '>{event.action.id}</span>
                         </div>
                     </div>
-                    <div className='w-1/3'>
+                    <div className='mb-5 lg:w-1/3'>
                         <p className='text-lg mb-2 text-gray-400'>DATE</p>
                         <div className='flex'>
                             <p className='w-1/4 text-gray-400'>Readable</p>
@@ -50,8 +50,8 @@ const EventDetails = (props: Props) => {
                         </div>
                     </div>
                 </div>
-                <div className='flex w-full'>
-                    <div className='w-1/3'>
+                <div className='lg:flex w-full'>
+                    <div className='mb-5 lg:w-1/3'>
                         <p className='text-lg mb-2 text-gray-400'>METADATA</p>
                         <div className='flex'>
                             <p className='w-1/4 text-gray-400'>Redirect</p>
@@ -66,7 +66,7 @@ const EventDetails = (props: Props) => {
                             <span className='w-3/4 '>{event.metadata.x_request_id}</span>
                         </div>
                     </div>
-                    <div className='w-1/3'>
+                    <div className='lg:w-1/3'>
                         <p className='text-lg mb-2 text-gray-400'>TARGET</p>
                         <div className='flex'>
                             <p className='w-1/4 text-gray-400'>Name</p>

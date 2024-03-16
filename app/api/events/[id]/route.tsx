@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "../schema";
 import prisma from '@/prisma/client';
-// import  {InstaLog}  from '../../../../../library/instalog'; // new library created
 import  {InstaLog}  from 'instalog'; // new library created
 
 interface Props{
