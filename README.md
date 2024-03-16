@@ -8,6 +8,7 @@ App used stack:
 * Prisma.
 * PostgreSql.
 * SWR.
+
 All written in TypeScript.
 
 ## Getting Started
@@ -31,13 +32,19 @@ npm install
 ```
 
 3. **Add environmet variables:**
-create .env.local file in the project root then add the following:
+create .env.local file in the project root then add the following link for database connection:
 
 ```
-POSTGRES_URL="postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require"
+DATABASE_URL="postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require"
 ```
 
-4. **Start the service:**
+4. **Migrate to the database:**
+
+```
+npx prisma migrate dev
+```
+
+5. **Start the service:**
 
 ```
 npm run dev
@@ -65,7 +72,7 @@ docker build -t instalog .
 3. **Run the Docker Container:**
 
 ```
-docker run -p 3000:3000 -e POSTGRES_URL=postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require instalog
+docker run -p 3000:3000 -e DATABASE_URL=postgres://[POSTGRES_USER]:[POSTGRES_PASSWORD]@[POSTGRES_HOST]:[PORT]/[POSTGRES_DATABASE]?sslmode=require instalog
 ```
 
 The service will start running at [localhost](http://localhost:3000).
@@ -79,6 +86,7 @@ filter: Search for events by actor, target or action.
 
 #### Example usage:
 GET /api/events?filter=mostafa
+
 This will return a filtered list of events matching the specified criteria.
 
 ### Add Event
@@ -86,6 +94,7 @@ You can add new event by sending a POST request to /api/events endpoint with the
 
 #### Example usage:
 POST /api/events
+
 body: {
             actor_id: '',
             actor_name: '',
@@ -106,6 +115,7 @@ body: {
                 x_request_id: ''
             }
         }
+
 This will add new event with the specified values in body.
 
 ### Edit Event
@@ -113,6 +123,7 @@ You can edit existing event by sending a PUT request to /api/events/{id} endpoin
 
 #### Example usage:
 PUT /api/events/{id}
+
 body: {
             actor_id: '',
             actor_name: '',
@@ -133,6 +144,7 @@ body: {
                 x_request_id: ''
             }
         }
+
 This will edit the event with the specified values in body.
 
 ### Delete Event
@@ -188,4 +200,5 @@ App updates events table after each successful add, edit or delete request.
 
 ## InstaLog npm library
 New npm library is published and used in the app as a dependency for listing events, adding events, editing events, deleting events.
+
 The library is published on: [instalog npm](https://www.npmjs.com/package/instalog)
